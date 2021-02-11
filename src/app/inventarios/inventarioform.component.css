@@ -1,0 +1,11 @@
+.tp-margin {
+    margin: 30px;
+}
+
+.table thead tr th {
+    font-weight: bold;
+}
+
+.card-title {
+    font-weight: bold;
+}

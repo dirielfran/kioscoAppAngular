@@ -1,0 +1,84 @@
+<div class="abrir-modal animacion fadeIn" *ngIf="retiromodalService.modal">
+    <div class="modal" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">{{ titulo }}</h2>
+                    <button (click)="cerrarRetiro()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form #validadorForm="ngForm">
+                        <div class="form-group row">
+                            <label for="region" class="col-form-label col-sm-2">Tipo:</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" [(ngModel)]="retiro.tipo" name="tipo">
+                                <option >Recarga Sube</option>
+                                <option >Retiro</option>
+                              </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="precio" class="col-form-label col-sm-2">Monto:</label>
+                            <div class="col-sm-6">
+                                <!--[(ngModel)] mapea con un atributo de la clase(Binding)-->
+                                <input type="number" class="form-control" [(ngModel)]="retiro.monto" name="monto" requiered minlength="4" #monto="ngModel">
+                                <div class="alert alert-danger" *ngIf="monto.invalid && (monto.dirty || monto.touched)">
+                                    <div *ngIf="monto.errors.required">
+                                        Precio es requerido.
+                                    </div>
+                                    <div *ngIf="monto.errors.minlength">
+                                        Monto debe tener al menos 2 caracteres.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="descripcion" class="col-form-label col-sm-2">Descripcion:</label>
+                            <div class="col-sm-6">
+                                <!--[(ngModel)] mapea con un atributo de la clase(Binding)-->
+                                <!-- Se agrega validaciones al input required, minlength, se asigna a una variable local nombre el objeto ngModel -->
+                                <input type="text" class="form-control" [(ngModel)]="retiro.descripcion" name="descripcion" required minlength="4" #descripcion="ngModel">
+                                <!-- Se valida con ngIf si es invalido el contenido del input y si tipeas o dejas el foco -->
+                                <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+                                    <!-- Se agrega mensaje validando si en los errores esta el reuired -->
+                                    <div *ngIf="descripcion.errors.required">
+                                        Descripcion es requerido.
+                                    </div>
+                                    <!-- Se agrega mensaje validando la longitud en los errores -->
+                                    <div *ngIf="descripcion.errors.minlength">
+                                        Descripcion debe tener al menos 4 caracteres.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cerrarRetiro()">Cerrar</button>
+                    <button type="button" (click)="create()" class="btn btn-primary" [disabled]="!validadorForm.form.valid">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- <ul class="alert alert-danger" *ngIf="errores?.length>0">
+    <li *ngFor="let err of errores">
+        {{err}}
+    </li>
+</ul>
+<div class="card bg-dark text-white">
+    <div class="card-header"></div>
+    <div class="card-body">
+
+    </div>
+</div> -->

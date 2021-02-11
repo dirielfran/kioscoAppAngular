@@ -1,0 +1,116 @@
+<ul class="alert alert-danger" *ngIf="errores?.length>0">
+    <li *ngFor="let err of errores">
+        {{err}}
+    </li>
+</ul>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card-body">
+            <!-- Se agrega varible global con con el objeto ngForm para que pueda ser validado -->
+            <form #validadorForm="ngForm">
+                <div class="form-group row">
+                    <label for="nombre" class="col-form-label col-sm-2">Nombre:</label>
+                    <div class="col-sm-6">
+                        <!--[(ngModel)] mapea con un atributo de la clase(Binding)-->
+                        <!-- Se agrega validaciones al input required, minlength, se asigna a una variable local nombre el objeto ngModel -->
+                        <input type="text" class="form-control" [(ngModel)]="producto.nombre" name="nombre" required minlength="4" #nombre="ngModel">
+                        <!-- Se valida con ngIf si es invalido el contenido del input y si tipeas o dejas el foco -->
+                        <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                            <!-- Se agrega mensaje validando si en los errores esta el reuired -->
+                            <div *ngIf="nombre.errors.required">
+                                Nombre es requerido.
+                            </div>
+                            <!-- Se agrega mensaje validando la longitud en los errores -->
+                            <div *ngIf="nombre.errors.minlength">
+                                Nombre debe tener al menos 4 caracteres.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--             <div class="form-group row">
+                <label for="preciocosto" class="col-form-label col-sm-2">Precio Costo:</label>
+                <div class="col-sm-6"> -->
+                <!--[(ngModel)] mapea con un atributo de la clase(Binding)-->
+                <!--                     <input type="number" class="form-control" [(ngModel)]="producto.preciocosto" name="preciocosto" requiered #preciocosto="ngModel">
+                    <div class="alert alert-danger" *ngIf="preciocosto.invalid && (preciocosto.dirty || preciocosto.touched)">
+                        <div *ngIf="precio.errors.required">
+                            Precio de costo es requerido.
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+                <div class="form-group row">
+                    <label for="precio" class="col-form-label col-sm-2">Precio:</label>
+                    <div class="col-sm-6">
+                        <!--[(ngModel)] mapea con un atributo de la clase(Binding)-->
+                        <input type="number" class="form-control" [(ngModel)]="producto.precio" name="precio" requiered minlength="4" #precio="ngModel">
+                        <div class="alert alert-danger" *ngIf="precio.invalid && (precio.dirty || precio.touched)">
+                            <div *ngIf="precio.errors.required">
+                                Precio es requerido.
+                            </div>
+                            <div *ngIf="precio.errors.minlength">
+                                precio debe tener al menos 4 caracteres.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="proveedor" class="col-form-label col-sm-2">Proveedor:</label>
+                    <div class="col-sm-6">
+                        <!--[(ngModel)] mapea con un atributo de la clase(Binding)-->
+                        <!-- Se agrega validaciones al input required, minlength, se asigna a una variable local nombre el objeto ngModel -->
+                        <input type="text" class="form-control" [(ngModel)]="producto.proveedor" name="proveedor" required minlength="4" #proveedor="ngModel">
+                        <!-- Se valida con ngIf si es invalido el contenido del input y si tipeas o dejas el foco -->
+                        <div class="alert alert-danger" *ngIf="proveedor.invalid && (proveedor.dirty || proveedor.touched)">
+                            <!-- Se agrega mensaje validando si en los errores esta el reuired -->
+                            <div *ngIf="proveedor.errors.required">
+                                Proveedor es requerido.
+                            </div>
+                            <!-- Se agrega mensaje validando la longitud en los errores -->
+                            <div *ngIf="proveedor.errors.minlength">
+                                Proveedor debe tener al menos 4 caracteres.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--             <div class="form-group row">
+                <label for="existencia" class="col-form-label col-sm-2">Existencia:</label>
+                <div class="col-sm-6"> -->
+                <!--[(ngModel)] mapea con un atributo de la clase(Binding)-->
+                <!--                     <input type="number" class="form-control" [(ngModel)]="producto.existencia" name="existencia" requiered #existencia="ngModel">
+                    <div class="alert alert-danger" *ngIf="existencia.invalid && (existencia.dirty || existencia.touched)">
+                    </div>
+                </div>
+            </div> -->
+
+                <div class="form-group row">
+                    <label for="minimo" class="col-form-label col-sm-2">Minimo:</label>
+                    <div class="col-sm-6">
+                        <!--[(ngModel)] mapea con un atributo de la clase(Binding)-->
+                        <input type="number" class="form-control" [(ngModel)]="producto.minimo" name="minimo" requiered #minimo="ngModel">
+                        <div class="alert alert-danger" *ngIf="minimo.invalid && (minimo.dirty || minimo.touched)">
+                            <div *ngIf="precio.errors.required">
+                                Minimo es requerido.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Se agrega metodo (click), se agrega directiva ngIf para validar si existe el cliente, en caso contrario se ejecuta el teplate elseBlock -->
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <!-- Se agrega atributi disabled para que este inhabilitado si el formulario no esta de forma correcta -->
+                        <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!producto.id else elseBlock" [disabled]="!validadorForm.form.valid">Crear</button>
+
+                        <ng-template #elseBlock>
+                            <button class="btn btn-primary" role="button" (click)='update()' [disabled]="!validadorForm.form.valid">Editar</button>
+                        </ng-template>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

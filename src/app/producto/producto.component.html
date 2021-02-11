@@ -1,0 +1,76 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card-body text-primary">
+            <h3 class="card-title">Listado de Productos</h3>
+
+            <div class="form-group row">
+                <div class="col sm-6">
+                    <mat-form-field class="col-4">
+                        <input type="text" placeholder="Agregue Producto" aria-label="Producto" matInput [formControl]="autoCompleteControl" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre" (optionSelected)="seleccionarProducto($event)">
+                            <mat-option *ngFor="let producto of productosFiltrados | async" [value]="producto">
+                                {{producto.nombre}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <!--                 <div class="alert alert-danger" *ngIf="autoCompleteControl.invalid && facturaForm.submitted">
+                La factura debe tener lineas.
+                </div> -->
+                </div>
+            </div>
+
+
+
+            <div class="my-2 text-left">
+                <!--[routerLink] Nos permite crear rutas nternas del proyecto-->
+                <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-dark" type="buttom" [routerLink]="['/productos/form']">Crear Producto</button>
+            </div>
+            <!-- Se crea div informativo en caso de no haber clientes en la lista -->
+            <div class="alert alert-info" *ngIf="productos?.length == 0">
+                No hay registros en la Base de Datos.
+            </div>
+            <div class="table-responsive">
+                <!-- Se agrega directiva ngIf para validar si la lista de clientes esta vacia -->
+                <table class="table table-striped" *ngIf="productos?.length>0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Precio Costo</th>
+                            <th>Precio</th>
+                            <th>Fecha</th>
+                            <th>Fecha Mod.</th>
+                            <th>Proveedor</th>
+                            <th>Existencia</th>
+                            <th>Minimo</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--Se añade condicional *ngFor-->
+                        <tr *ngFor="let producto of productos">
+                            <td>{{producto.id}}</td>
+                            <td>{{producto.nombre}}</td>
+                            <td>{{producto.preciocosto | number}}</td>
+                            <td>{{producto.precio | number }}</td>
+                            <td>{{producto.createAt | date:'EEEE dd, MMMM yyyy'}}</td>
+                            <td>{{producto.fechamod | date:'EEEE dd, MMMM yyyy'}}</td>
+                            <td>{{producto.proveedor}}</td>
+                            <td>{{producto.existencia | number}}</td>
+                            <td>{{producto.minimo}}</td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+                                <button class="btn btn-info btn-sm" type="button" name="editar" [routerLink]="['/productos/form', producto.id]">Editar</button>
+                            </td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+                                <button class="btn btn-danger btn-sm" type="button" name="eliminar" (click)="delete(producto)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Paginacion -->
+                <paginadorprod-nav *ngIf="paginador" [paginador]="paginador"></paginadorprod-nav>
+            </div>
+        </div>
+    </div>
+</div>

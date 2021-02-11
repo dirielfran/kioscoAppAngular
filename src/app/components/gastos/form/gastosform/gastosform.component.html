@@ -1,0 +1,85 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card-body">
+            <div class="card-title">
+                <form #gastoForm="ngForm">
+                    <div class="form-group row" *ngIf="usuario">
+                        <label for="cliente" class="col-sm-2 col-form-label">Usuario</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="usuario" value="{{usuario}}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="descripcion" class="col-sm-2 col-form-label">Proveedor</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="proveedor" [(ngModel)]="gasto.proveedor" #proveedor="ngModel">
+                            <!-- Se valida con ngIf si es invalido el contenido del input y si tipeas o dejas el foco -->
+                            <div class="alert alert-danger" *ngIf="proveedor.invalid && (proveedor.dirty || proveedor.touched)">
+                                <!-- Se agrega mensaje validando si en los errores esta el reuired -->
+                                <div *ngIf="proveedor.errors.required">
+                                    Nombre es requerido.
+                                </div>
+                                <!-- Se agrega mensaje validando la longitud en los errores -->
+                                <div *ngIf="proveedor.errors.minlength">
+                                    Nombre debe tener al menos 4 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="metodopago" class="col-form-label col-sm-2">Tipo de Pago:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" [(ngModel)]="gasto.metodopago" name="metodopago">
+                      <option >Efectivo</option>
+                      <option >MercadoPago</option>
+                    </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="descripcion" [(ngModel)]="gasto.descripcion" #descripcion="ngModel">
+                            <!-- Se valida con ngIf si es invalido el contenido del input y si tipeas o dejas el foco -->
+                            <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+                                <!-- Se agrega mensaje validando si en los errores esta el reuired -->
+                                <div *ngIf="descripcion.errors.required">
+                                    Nombre es requerido.
+                                </div>
+                                <!-- Se agrega mensaje validando la longitud en los errores -->
+                                <div *ngIf="descripcion.errors.minlength">
+                                    Nombre debe tener al menos 4 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="createAt" class="col-form-label col-sm-2">Fecha:</label>
+                        <div class="col-sm-6">
+                            <input type="date" class="form-control" [(ngModel)]="gasto.fechaFact" name="fechafact" required style="width:250px">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="monto" class="col-sm-2 col-form-label">Monto:</label>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" name="monto" [(ngModel)]="gasto.montoPesos" #monto="ngModel" required>
+                        </div>
+                        <!-- el atributo touched valida si se hace click fuera del elemento -->
+                        <div class="alert alert-danger" *ngIf="monto.invalid && monto.touched || monto.invalid && gastoForm.submitted">
+                            El monto es requerido
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <input type="submit" value="Crear Gasto" (click)="crearGasto(gastoForm)" class="btn btn-secondary" [disabled]="!gastoForm.form.valid">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

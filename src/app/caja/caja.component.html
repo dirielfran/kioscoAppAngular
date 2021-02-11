@@ -1,0 +1,58 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card-body text-primary">
+            <h3 class="card-title">Listado de Cajas</h3>
+            <!-- Se crea div informativo en caso de no haber clientes en la lista -->
+            <div class="alert alert-info" *ngIf="cajas?.length == 0">
+                No hay registros en la Base de Datos.
+            </div>
+            <div class="table-responsive">
+                <!-- Se agrega directiva ngIf para validar si la lista de clientes esta vacia -->
+                <table class="table table-striped" *ngIf="cajas?.length>0">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>FechaOpen</th>
+                            <th>FechaClose</th>
+                            <th>FechaMod</th>
+                            <th>Venta</th>
+                            <th>Efectivo</th>
+                            <th>Mercado Pago</th>
+                            <th>Retiros</th>
+                            <th>Inicio</th>
+                            <th>Ganancia</th>
+                            <th>Diferencia</th>
+                            <th>estado</th>
+                            <!--                         <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
+                        <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--Se añade condicional *ngFor-->
+                        <tr *ngFor="let caja of cajas">
+                            <td>{{caja.id}}</td>
+                            <td>{{caja.fechaopen | date:'EEEE dd, MMMM yyyy'}}</td>
+                            <td>{{caja.fechaclose | date:'EEEE dd, MMMM yyyy'}}</td>
+                            <td>{{caja.fechamod | date:'EEEE dd, MMMM yyyy'}}</td>
+                            <td>{{caja.venta | number }}</td>
+                            <td style="color: blue">{{caja.venta - caja.mercadopago - caja.retiros | number }}</td>
+                            <td>{{caja.mercadopago | number}}</td>
+                            <td>{{caja.retiros | number}}</td>
+                            <td>{{caja.iniciocaja | number }}</td>
+                            <td style="color: darkorchid">{{caja.ganancia | number}}</td>
+                            <td>{{caja.diferencia | number}}</td>
+                            <td>{{caja.estado}}</td>
+                            <!--                         <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+                            <button class="btn btn-primary btn-sm" type="button" name="editar" [routerLink]="['/productos/form', producto.id]">Editar</button>
+                        </td>
+                        <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+                            <button class="btn btn-danger btn-sm" type="button" name="eliminar" (click)="delete(producto)">Eliminar</button>
+                        </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Paginacion -->
+                <app-paginadorcaja *ngIf="paginador" [paginador]="paginador"></app-paginadorcaja>
+            </div>
+        </div>
+    </div>

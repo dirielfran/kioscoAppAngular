@@ -1,0 +1,50 @@
+<div class="main-content" *ngIf="inventario">
+    <div class="container-fluid">
+        <div class="card-body">
+            <h4 class="card-title">
+                <a [routerLink]="['/inventarios']" class="btn btn-light btn-xs">&laquo; volver</a>
+            </h4>
+
+            <ul class="list-group my-2">
+                <li class="list-group-item list-group-item-primary">Datos del Inventario</li>
+                <li class="list-group-item ">Proveedor: {{inventario.proveedor}}</li>
+                <li class="list-group-item ">Fecha de Inventario: {{inventario.fechacreate | date:'EEEE dd, MMMM yyyy'}}</li>
+                <li class="list-group-item ">Fecha de Modificacion: {{inventario.fechamod}}</li>
+                <li class="list-group-item ">Usuario de Modificacion: {{inventario.usuario.username}}</li>
+                <li class="list-group-item ">Total del inventario: {{inventario.total}}</li>
+            </ul>
+
+
+            <table class="table table-striped table-hover table-bordered my-3">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Fecha</th>
+                        <th>Cantidad Inic.</th>
+                        <th>Cantidad add</th>
+                        <th>Existencia</th>
+                        <th>Precio Compra</th>
+                        <th>Precio Venta</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of inventario.items">
+                        <th>{{item.producto.nombre}}</th>
+                        <th>{{item.fechacreate | date:'EEEE dd, MMMM yyyy'}}</th>
+                        <th>{{item.stockinicial | number: '.1-2'}}</th>
+                        <th>{{item.stockadd | number: '.1-2'}}</th>
+                        <th>{{item.existencia | number: '.1-2'}}</th>
+                        <th>{{item.preciocompra}} </th>
+                        <th>{{item.precioventa}}</th>
+                        <th>{{item.preciocompra*item.stockadd | number: '.1-2'}} </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf="inventario.items.length > 0" class="float-right">
+                <h2>Total Inventario:<span class="badge badge-secondary">{{inventario.total}}</span></h2>
+            </div>
+
+        </div>
+    </div>
+</div>

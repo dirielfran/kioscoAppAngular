@@ -1,0 +1,37 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card-body text-primary">
+            <h3 class="card-title">{{title}}</h3>
+
+            <!-- Se crea div informativo en caso de no haber consignaciones en la lista -->
+            <div class="alert alert-info" *ngIf="consignaciones?.length == 0 || consignaciones == null">
+                No hay Consignacion pendientes por pagar.
+            </div>
+            <div class="table-responsive">
+                <!-- Se agrega directiva ngIf para validar si la lista de clientes esta vacia -->
+                <table class="table table-striped" *ngIf="consignaciones?.length>0 ">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Total</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Pagar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--Se añade condicional *ngFor-->
+                        <tr *ngFor="let consignacion of consignaciones">
+                            <td>{{consignacion.producto}}</td>
+                            <td>{{consignacion.cantidad | number:'.1-2'}}</td>
+                            <td>{{consignacion.precio | number:'.1-2'}}</td>
+                            <td>{{consignacion.cantidad * consignacion.precio | number:'.1-2'}}</td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+                                <button class="btn btn-success btn-sm" type="button" name="pagar" (click)="pagar(consignacion)">Pagar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>

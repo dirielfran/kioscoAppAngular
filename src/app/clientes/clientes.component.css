@@ -1,0 +1,15 @@
+button {
+    margin: 10px;
+}
+
+.table thead th {
+    text-align: center;
+}
+
+.table thead tr th {
+    font-weight: bold;
+}
+
+.card-title {
+    font-weight: bold;
+}

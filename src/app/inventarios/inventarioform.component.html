@@ -1,0 +1,137 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card-body">
+            <div class="card-title">
+                <form #inventarioForm="ngForm">
+                    <div class="form-group row" *ngIf="usuario">
+                        <label for="cliente" class="col-sm-2 col-form-label">Usuario</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="usuario" value="{{usuario}}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="proveedor" class="col-sm-2 col-form-label">Proveedor</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="proveedor" [(ngModel)]="inventario.proveedor" minlength="4" required #proveedor="ngModel">
+                            <div class="alert alert-danger" *ngIf="proveedor.invalid && (proveedor.dirty || proveedor.touched)">
+                                <!-- Se agrega mensaje validando si en los errores esta el reuired -->
+                                <div *ngIf="proveedor.errors.required">
+                                    Proveedor es requerido.
+                                </div>
+                                <!-- Se agrega mensaje validando la longitud en los errores -->
+                                <div *ngIf="proveedor.errors.minlength">
+                                    Proveedor debe tener al menos 4 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="descripcion" class="col-sm-2 col-form-label">Descripcion</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="descripcion" [(ngModel)]="inventario.descripcion" minlength="4" required #descripcion="ngModel">
+                            <div class="alert alert-danger" *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)">
+                                <!-- Se agrega mensaje validando si en los errores esta el reuired -->
+                                <div *ngIf="descripcion.errors.required">
+                                    Descripcion es requerido.
+                                </div>
+                                <!-- Se agrega mensaje validando la longitud en los errores -->
+                                <div *ngIf="descripcion.errors.minlength">
+                                    Descripcion debe tener al menos 4 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="createAt" class="col-form-label col-sm-2">Fecha:</label>
+                        <div class="col-sm-6">
+                            <input type="date" class="form-control" [(ngModel)]="inventario.fechacreate" name="fundacion" required style="width:250px" #fecha="ngModel">
+                            <div class="alert alert-danger" *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)">
+                                <!-- Se agrega mensaje validando si en los errores esta el reuired -->
+                                <div *ngIf="fecha.errors.required">
+                                    Fecha es requerida.
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="metodopago" class="col-form-label col-sm-2">Tipo de Pago:</label>
+                        <div class="col-sm-6">
+                            <select class="form-control" [(ngModel)]="inventario.metodopago" name="metodopago" required style="width:250px" #pago="ngModel">
+                          <option selected>Efectivo</option>
+                          <option >MercadoPago</option>
+                        </select>
+                        </div>
+                        <div class="alert alert-danger" *ngIf="pago.invalid && (pago.dirty || pago.touched)">
+                            <!-- Se agrega mensaje validando si en los errores esta el reuired -->
+                            <div *ngIf="pago.errors.required">
+                                Tipo de pago es requerido.
+                            </div>
+                        </div>
+                    </div>
+
+                    <mat-slide-toggle class="tp-margin" [checked]="checked" [disabled]="disabled" [color]="color" (change)="mostrar()">
+                        Consignacion
+                    </mat-slide-toggle>
+
+                    <div class="form-group row">
+                        <div class="col sm-6">
+                            <mat-form-field class="col-4">
+                                <input type="text" placeholder="Agregue Producto" aria-label="Producto" matInput [formControl]="autoCompleteControl" [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre" (optionSelected)="seleccionarProducto($event)">
+                                    <mat-option *ngFor="let producto of productosFiltrados | async" [value]="producto">
+                                        {{producto.nombre}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <div class="alert alert-danger" *ngIf="autoCompleteControl.invalid && inventarioForm.submitted">
+                                El inventario debe tener lineas.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Se valida si hay items en la factura -->
+                    <div class="alert alert-info my-4" *ngIf="inventario.items.length == 0">
+                        La factura no posee items. Debe agregar al menos uno.
+                    </div>
+                    <!-- Items de la factura -->
+                    <table class="table table-striped table-hover table-sm" *ngIf="inventario.items.length > 0">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Precio Compra</th>
+                                <th>Precio Venta</th>
+                                <th>Cantidad</th>
+                                <th>Total</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of inventario.items">
+                                <td>{{item.producto.nombre}}</td>
+                                <td><input type="number" [(ngModel)]="item.producto.preciocosto" name="preciocosto{{item.producto.id}}" class="form-control col-sm-6" (change)="actPrecioCompra(item.producto.id,$event)"></td>
+                                <td><input type="number" [(ngModel)]="item.producto.precio" name="precio{{item.producto.id}}" class="form-control col-sm-6" (change)="actPrecioVenta(item.producto.id,$event)"></td>
+                                <!-- el metodo actCantidad se le pasa como parametro el evento que contiene la cantidad -->
+                                <td><input type="number" value="{{item.stockadd}}" class="form-control col-sm-6" (change)="actCantidad(item.producto.id,$event)"></td>
+                                <td>{{item.getTotal() | number:'.1-2'}}</td>
+                                <td><button class="btn btn-danger btn-sm" type="button" (click)="deleteItem(item.producto.id)">eliminar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div *ngIf="inventario.items.length > 0" class="float-right">
+                        <h2>Total Inventario:<span class="badge badge-secondary">{{inventario.getTotalInventario() | number:'.1-2'}}</span></h2>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <input type="submit" value="Crear Inventario" (click)="crearInventario(inventarioForm)" class="btn btn-success" [disabled]="!inventarioForm.form.valid || habilitado === false">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

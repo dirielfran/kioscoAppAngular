@@ -1,0 +1,72 @@
+<detalle-cliente *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></detalle-cliente>
+<app-retiro *ngIf="clienteSeleccionadoRetiro" [cliente]="clienteSeleccionadoRetiro"></app-retiro>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card-body text-primary">
+            <h3 class="card-title">Listado de Usuarios</h3>
+            <div class="my-2 text-left" class="animated fadeIn">
+                <!--[routerLink] Nos permite crear rutas nternas del proyecto-->
+                <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-morphing" type="buttom" [routerLink]="['/clientes/form']">Crear Usuario</button>
+            </div>
+            <!-- Se crea div informativo en caso de no haber clientes en la lista -->
+            <div class="alert alert-info" *ngIf="clientes?.length == 0">
+                No hay registros en la Base de Datos.
+            </div>
+            <!-- <app-loading></app-loading> -->
+            <div class="table-responsive">
+                <!-- Se agrega directiva ngIf para validar si la lista de clientes esta vacia -->
+                <table class="table table-striped" *ngIf="clientes?.length>0">
+                    <thead>
+                        <tr>
+                            <th *ngIf="authService.hasRole('ROLE_USER')">Img</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>fecha</th>
+                            <th>Email</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN') && !cajaEstado">Abrir</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">Cerrar</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">Facturar</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">Retiros</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--Se añade condicional *ngFor-->
+                        <tr *ngFor="let cliente of clientes">
+                            <!-- <td *ngIf="authService.hasRole('ROLE_USER')"><img *ngIf="cliente?.foto" (click)="abrirModal(cliente)" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded" style="width: 64px; cursor: pointer;"> -->
+                            <td *ngIf="authService.hasRole('ROLE_USER')"><img *ngIf="cliente?.foto" (click)="abrirModal(cliente)" src="http://66.228.61.76/springAngular/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded" style="width: 64px; cursor: pointer;">
+                                <!-- <img *ngIf="!cliente?.foto" (click)="abrirModal(cliente)" src="http://localhost:8080/images/noUser.png" alt="Sin Imagen" class="img-thumbnail rounded" style="width: 64px; cursor: pointer;"> -->
+                                <img *ngIf="!cliente?.foto" (click)="abrirModal(cliente)" src="http://66.228.61.76/springAngular/images/noUser.png" alt="Sin Imagen" class="img-thumbnail rounded" style="width: 64px; cursor: pointer;">
+                            </td>
+                            <td>{{cliente.nombre}}</td>
+                            <td>{{cliente.apellido}}</td>
+                            <td>{{cliente.fecha | date:'EEEE dd, MMMM yyyy'}}</td>
+                            <td>{{cliente.email}}</td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN') && !cajaEstado">
+                                <button class="btn btn-success btn-sm" type="button" (click)="abrirCaja(cliente.id)" [disabled]="!habilitado">Abrir</button>
+                            </td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">
+                                <button class="btn btn-success btn-sm" type="button" (click)="cerrarCaja()">Cerrar</button>
+                            </td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">
+                                <button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">Facturar</button>
+                            </td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">
+                                <button class="btn btn-danger btn-sm" type="button" (click)="abrirRetiro(cliente)">Retiro</button>
+                            </td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+                                <button class="btn btn-info btn-sm" type="button" name="editar" [routerLink]="['/clientes/form', cliente.id]">Editar</button>
+                            </td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+                                <button class="btn btn-danger btn-sm" type="button" name="eliminar" (click)="delete(cliente)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Paginacion -->
+                <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+            </div>
+        </div>
+    </div>
+</div>

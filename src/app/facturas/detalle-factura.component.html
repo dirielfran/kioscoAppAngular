@@ -1,0 +1,56 @@
+<div class="main-content" *ngIf="factura">
+    <div class="container-fluid">
+        <div class="card-body">
+            <h4 class="card-title">
+                <a [routerLink]="['/clientes']" class="btn btn-light btn-xs">&laquo; volver</a>
+            </h4>
+            {{titulo}}: {{factura.descripcion}}
+            <ul class="list-group my-2">
+                <li class="list-group-item list-group-item-primary">Datos del Cliente</li>
+                <li class="list-group-item ">{{factura.cliente.nombre}}</li>
+                <li class="list-group-item ">{{factura.cliente.apellido}}</li>
+            </ul>
+
+            <ul class="list-group my-2">
+                <li class="list-group-item list-group-item-primary">Datos de la factura</li>
+                <li class="list-group-item ">Id: {{factura.id}}</li>
+                <li class="list-group-item ">Descripcion: {{factura.descripcion}}</li>
+                <li class="list-group-item ">Fecha: {{factura.createAt}}</li>
+            </ul>
+
+            <table class="table table-striped table-hover table-bordered my-3">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio</th>
+                        <th>Comision</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of factura.items">
+                        <th>{{item.producto.nombre}}</th>
+                        <th>{{item.producto.precio | number}}</th>
+                        <th>{{item.comision | number}}</th>
+                        <th>{{item.cantidad | number}}</th>
+                        <th>{{item.importe | number}}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf="factura.items.length > 0" class="float-right">
+                <h2>Efectivo:<span class="badge badge-secondary">{{factura.total - factura.mercadopago}}</span></h2>
+                <h2>Mercado Pago:<span class="badge badge-secondary">{{factura.mercadopago}}</span></h2>
+                <h2>Total Factura:<span class="badge badge-secondary">{{factura.total}}</span></h2>
+            </div>
+            <div class="card card-info mb-4" style="max-width: 350px">
+                <div class="card card-header">
+                    Observaciones
+                </div>
+                <div class="card card-body">
+                    <p *ngIf="!factura.observacion">No tiene Observacion</p>
+                    <p *ngIf="factura.observacion">{{factura.observacion}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
