@@ -18,7 +18,24 @@ export class GastosService {
 
     constructor( private httpClient: HttpClient,
                  private router: Router) {  }
+    
+    getGanacias(): Observable<number>{
+      return this.httpClient.get(this.urlEndPoint+'/ganancias').pipe(
+        map( ( response: number ) => {
+          console.log( response )
+          return response;
+        })
+      );
+    }
 
+    getGastosxMes(): Observable<number>{
+      return this.httpClient.get(this.urlEndPoint+'/gastosxmes').pipe(
+        map( (response:number) => {
+          console.log( response );
+          return response;
+        })
+      );
+    }
 
     getGastos(page: number): Observable<any>{
       return this.httpClient.get(this.urlEndPoint + '/page/' + page).pipe(

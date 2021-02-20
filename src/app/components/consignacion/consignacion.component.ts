@@ -3,6 +3,7 @@ import { AuthService } from '../../usuarios/auth.service';
 import { ConsignacionService } from './consignacion.service';
 import { Consignacion } from './consignacion';
 import Swal from 'sweetalert2';
+import {ThemePalette} from '@angular/material/core';
 
 @Component({
   selector: 'app-consignacion',
@@ -18,6 +19,14 @@ export class ConsignacionComponent implements OnInit {
   // arreglo para los errores
   public errores: string[];
 
+    // Deshabilitar boton
+    habilitado = true;
+    mercadoPago = false;
+  
+    disabled = false;
+    checked = false;
+    color: ThemePalette = 'primary';
+
   constructor(public authService: AuthService,
               private consignacionService: ConsignacionService
               ) { }
@@ -30,12 +39,14 @@ export class ConsignacionComponent implements OnInit {
     );
   }
 
-
+  mostrar(): void{
+    this.mercadoPago = !this.mercadoPago;
+  }
 
    // Se crea metodo invocado por el formulario
    public pagar(consignacion: Consignacion): void{
     // Se llama el metodo de la clase de servicio y se suscribe al observable
-    this.consignacionService.crearGastoConsignacion(consignacion).subscribe(
+    this.consignacionService.crearGastoConsignacion(consignacion, this.mercadoPago).subscribe(
         // Se cambia a json que es lo que recibe
         json => {
         // Metodo de sweetAlert

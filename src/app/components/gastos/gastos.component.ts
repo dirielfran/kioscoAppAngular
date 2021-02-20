@@ -18,6 +18,9 @@ export class GastosComponent implements OnInit {
   paginador: any;
   caja: Cajachica;
 
+  ganancias: number;
+  gastosXMes: number;
+
   // tslint:disable-next-line: no-shadowed-variable
   constructor(  private ActivatedRoute: ActivatedRoute,
                 private gastoService: GastosService,
@@ -43,6 +46,16 @@ export class GastosComponent implements OnInit {
     this.gastoService.getCaja().subscribe(
       response => {
         this.caja = response as Cajachica;
+      }
+    );
+    this.gastoService.getGanacias().subscribe(
+      response => {
+        this.ganancias = response as number;
+      }
+    );
+    this.gastoService.getGastosxMes().subscribe(
+      response => {
+        this.gastosXMes = response as number;
       }
     );
   }

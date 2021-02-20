@@ -29,8 +29,8 @@ export class ConsignacionService {
     );
   }
 
-  crearGastoConsignacion(consignacion: Consignacion): Observable<any>{
-    return this.httpClient.post<any>(this.urlEndPoint, consignacion).pipe(
+  crearGastoConsignacion(consignacion: Consignacion, mercadoPago: boolean): Observable<any>{
+    return this.httpClient.post<any>(this.urlEndPoint+'?mercadoPago='+mercadoPago, consignacion).pipe(
       // Se agrega el operador catchError, intercepta en caso de existir error
       catchError(e => {
         // Manejo de validacion que viene en el response del backend

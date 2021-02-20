@@ -1,19 +1,17 @@
 <div class="main-content" *ngIf="gasto">
-    <div class="container-fluid">
-        <div class="card-header">{{titulo}}: {{gasto.descripcion}}</div>
-        <div class="card-body">
-            <h4 class="card-title">
-                <a [routerLink]="['/gastos']" class="btn btn-light btn-xs">&laquo; volver</a>
-            </h4>
+    <div class="card-body">
+        <h4 class="card-title">
+            <a [routerLink]="['/gastos']" class="btn btn-success btn-xs">&laquo; volver</a>
+        </h4>
 
-            <ul class="list-group my-2">
-                <li class="list-group-item list-group-item-primary">Detalle del gasto</li>
-                <li class="list-group-item ">Proveedor: {{gasto.proveedor}}</li>
-                <li class="list-group-item ">Fecha de Factura: {{gasto.fechaFact | date:'EEEE dd, MMMM yyyy'}}</li>
-                <li class="list-group-item ">Fecha de Modificacion: {{gasto.fechaCarga | date:'EEEE dd, MMMM yyyy'}}</li>
-                <li class="list-group-item ">Usuario: {{gasto.usuario}}</li>
-                <li class="list-group-item ">Monto del Gasto: {{gasto.montoPesos}}</li>
-            </ul>
-        </div>
+        <ul class="list-group my-2">
+            <li class="list-group-item list-group-item-info">Detalle del gasto</li>
+            <li class="list-group-item ">{{titulo}}: {{gasto.descripcion}}</li>
+            <li class="list-group-item ">Proveedor: {{gasto.proveedor}}</li>
+            <li class="list-group-item ">Fecha de Factura: {{gasto.fechaFact | date:'EEEE dd, MMMM yyyy'}}</li>
+            <li class="list-group-item ">Fecha de Modificacion: {{gasto.fechaCarga | date:'EEEE dd, MMMM yyyy'}}</li>
+            <li class="list-group-item ">Usuario: {{gasto.usuario}}</li>
+            <li class="list-group-item ">Monto del Gasto: {{gasto.montoPesos}}</li>
+        </ul>
     </div>
 </div>

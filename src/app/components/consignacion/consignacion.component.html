@@ -7,6 +7,10 @@
             <div class="alert alert-info" *ngIf="consignaciones?.length == 0 || consignaciones == null">
                 No hay Consignacion pendientes por pagar.
             </div>
+
+            <mat-slide-toggle class="tp-margin" [checked]="checked" [disabled]="disabled" [color]="color" (change)="mostrar()" *ngIf="consignaciones?.length>0 ">
+                Mercado Pago
+            </mat-slide-toggle>
             <div class="table-responsive">
                 <!-- Se agrega directiva ngIf para validar si la lista de clientes esta vacia -->
                 <table class="table table-striped" *ngIf="consignaciones?.length>0 ">
