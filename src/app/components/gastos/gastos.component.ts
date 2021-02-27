@@ -16,7 +16,7 @@ export class GastosComponent implements OnInit {
   gastos: Gastos[];
   // Atributo para la paginacion
   paginador: any;
-  caja: Cajachica;
+  caja!: Cajachica;
 
   ganancias: number;
   gastosXMes: number;
