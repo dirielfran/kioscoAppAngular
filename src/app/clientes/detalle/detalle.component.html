@@ -17,7 +17,7 @@
                                     <li class="list-group-item">{{cliente.email}}</li>
                                     <li class="list-group-item">{{cliente.fecha | date:"fullDate"}}</li>
                                 </ul>
-                                <div class="input-group mb-3" *ngIf="authService.hasRole('ROLE_ADMIN')">
+                                <!--<div class="input-group mb-3" *ngIf="authService.hasRole('ROLE_ADMIN')">
                                     <div class="custom-file">
                                         <input (change)="seleccionarFoto($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" value="Buscar">
                                         <label class="custom-file-label" for="inputGroupFile04">Seleccionar Foto</label>
@@ -25,7 +25,7 @@
                                     <div class="input-group-append">
                                         <button (click)="subirFoto()" [disabled]="!fotoSeleccionada" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Subir Foto</button>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div *ngIf="progreso > 0" class="progress" style="height: 40px;">
                                     <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{width:progreso+'%'}" attr.aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100">
                                         {{progreso}}%
@@ -38,9 +38,84 @@
                             </div>
                         </div>
                         <!--             <div class="row" *ngIf="authService.hasRole('ROLE_ADMIN')">
-              <button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">Crear Factura</button>
-            </div> -->
-
+                        <button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">Crear Factura</button>
+                        </div> -->
+                        <div *ngIf="cliente.facturas.length > 0" class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-success card-header-icon">
+                                            <div class="card-icon">
+                                                <i class="material-icons">account_balance_wallet</i>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h4 class="card-title"><small>$</small>{{ efectivo | number}}
+                                            </h4>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                <i class="material-icons">account_balance_wallet</i> Total Efectivo
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-info card-header-icon">
+                                            <div class="card-icon">
+                                                <i class="material-icons">store</i>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h4 class="card-title"><small>$</small>{{ mercadoPago | number}}
+                                            </h4>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                <i class="material-icons">store</i> MercadoPago
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-danger card-header-icon">
+                                            <div class="card-icon">
+                                                <i class="material-icons">dashboard_customize</i>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h4 class="card-title"><small>$</small>{{ retiros | number}}
+                                            </h4>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                <i class="material-icons">dashboard_customize</i> Total Retiros
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="card card-stats">
+                                        <div class="card-header card-header-primary card-header-icon">
+                                            <div class="card-icon">
+                                                <i class="material-icons">paid</i>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h4 class="card-title"><small>$</small>{{ total | number}}
+                                            </h4>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="stats">
+                                                <i class="material-icons">paid</i> Total General
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="alert alert-info my-4" *ngIf="cliente.facturas.length == 0">
                                 No hay facturas asignadas para la caja de {{cliente.nombre}} {{cliente.apellido}}
@@ -67,83 +142,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div *ngIf="cliente.facturas.length > 0" class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-6">
-                                        <div class="card card-stats">
-                                            <div class="card-header card-header-success card-header-icon">
-                                                <div class="card-icon">
-                                                    <i class="material-icons">account_balance_wallet</i>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <h4 class="card-title"><small>$</small>{{ efectivo | number}}
-                                                </h4>
-                                            </div>
-                                            <div class="card-footer">
-                                                <div class="stats">
-                                                    <i class="material-icons">account_balance_wallet</i> Total Efectivo
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6">
-                                        <div class="card card-stats">
-                                            <div class="card-header card-header-info card-header-icon">
-                                                <div class="card-icon">
-                                                    <i class="material-icons">store</i>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <h4 class="card-title"><small>$</small>{{ mercadoPago | number}}
-                                                </h4>
-                                            </div>
-                                            <div class="card-footer">
-                                                <div class="stats">
-                                                    <i class="material-icons">store</i> MercadoPago
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6">
-                                        <div class="card card-stats">
-                                            <div class="card-header card-header-danger card-header-icon">
-                                                <div class="card-icon">
-                                                    <i class="material-icons">dashboard_customize</i>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <h4 class="card-title"><small>$</small>{{ retiros | number}}
-                                                </h4>
-                                            </div>
-                                            <div class="card-footer">
-                                                <div class="stats">
-                                                    <i class="material-icons">dashboard_customize</i> Total Retiros
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6">
-                                        <div class="card card-stats">
-                                            <div class="card-header card-header-primary card-header-icon">
-                                                <div class="card-icon">
-                                                    <i class="material-icons">paid</i>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <h4 class="card-title"><small>$</small>{{ total | number}}
-                                                </h4>
-                                            </div>
-                                            <div class="card-footer">
-                                                <div class="stats">
-                                                    <i class="material-icons">paid</i> Total General
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                            
                             <table class="table table-bordered table-striped my-4" *ngIf="cliente.retirosCaja.length > 0">
                                 <thead>
                                     <tr style="background-color:darkgray;">
