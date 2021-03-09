@@ -13,8 +13,8 @@ import { Retiro } from './retiro';
 })
 export class RetiromodalService {
   // Se alamacena en variable el endPoint
-   private urlEndPoint: string ='http://localhost:8080/api/retiros';
-  // private urlEndPoint: string ='http://66.228.61.76/springAngular/api/retiros';
+  // private urlEndPoint: string ='http://localhost:8080/api/retiros';
+   private urlEndPoint: string ='http://66.228.61.76/springAngular/api/retiros';
 
   modal: boolean = false;
   constructor( private http: HttpClient,

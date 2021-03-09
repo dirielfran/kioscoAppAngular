@@ -13,8 +13,8 @@ export class GastosService {
 
     // Se alamacena en variable el endPoint
 
-     private urlEndPoint = 'http://localhost:8080/api/gastos';
-    // private urlEndPoint: string ='http://66.228.61.76/springAngular/api/gastos';
+    // private urlEndPoint = 'http://localhost:8080/api/gastos';
+     private urlEndPoint: string ='http://66.228.61.76/springAngular/api/gastos';
 
     constructor( private httpClient: HttpClient,
                  private router: Router) {  }

@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 export class ConsignacionService {
 
   // Se alamacena en variable el endPoint
-   private urlEndPoint = 'http://localhost:8080/api/consignaciones';
-  // private urlEndPoint: string ='http://66.228.61.76/springAngular/api/consignaciones';
+  // private urlEndPoint = 'http://localhost:8080/api/consignaciones';
+   private urlEndPoint: string ='http://66.228.61.76/springAngular/api/consignaciones';
 
   constructor(private httpClient: HttpClient,
               private router: Router) { }
