@@ -16,8 +16,8 @@ import { Usuario } from '../usuarios/usuario';
 })
 export class CajaService {
   // Se alamacena en variable el endPoint
-  // private urlEndPoint = 'http://localhost:8080/api/caja';
-   private urlEndPoint = 'http://66.228.61.76/springAngular/api/caja';
+   private urlEndPoint = 'http://localhost:8080/api/caja';
+  // private urlEndPoint = 'http://66.228.61.76/springAngular/api/caja';
   public usuario: Usuario;
 
   constructor(private http: HttpClient, private router: Router,

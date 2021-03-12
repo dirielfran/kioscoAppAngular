@@ -74,16 +74,15 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'productos',              component: ProductoComponent,},
     { path: 'clientes',               component: ClientesComponent, },
     { path: 'cajas',                  component: CajaComponent, },
-    { path: 'gastos',                 component: GastosComponent, },
+    { path: 'gastos',                 component: GastosComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
     { path: 'inventarios',            component: InventariosComponent, },
     { path: 'consignacion',           component: ConsignacionComponent, },
     
     // Ruta con paginacion
-    { path: 'clientes/page/:page',    component: ClientesComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
-    { path: 'productos/page/:page',   component: ProductoComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+    { path: 'productos/page/:page',   component: ProductoComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
     { path: 'gastos/page/:page',      component: GastosComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
-    { path: 'cajas/page/:page',       component: CajaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
-    { path: 'inventarios/page/:page', component: InventariosComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+    { path: 'cajas/page/:page',       component: CajaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
+    { path: 'inventarios/page/:page', component: InventariosComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
 
     // Se mapea la ruta al formulario
     { path: 'clientes/form',          component: FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
@@ -98,7 +97,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'gastos/:id',             component: GastosDetalleComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
     { path: 'inventarios/:id',        component: DetalleInventarioComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},  
     { path: 'facturas/:id',           component: DetalleFacturaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
-    { path: 'facturas/form/:clienteId', component: FacturasComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+    { path: 'facturas/form/:clienteId', component: FacturasComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
     
 
     { path: 'user-profile',          component: UserProfileComponent },

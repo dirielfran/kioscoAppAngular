@@ -27,8 +27,8 @@ import { Usuario } from '../usuarios/usuario';
 })
 export class ClienteService {
   // Se alamacena en variable el endPoint
-  // private urlEndPoint = 'http://localhost:8080/api/clientes';
-   private urlEndPoint: string ='http://66.228.61.76/springAngular/api/clientes';
+   private urlEndPoint = 'http://localhost:8080/api/clientes';
+  // private urlEndPoint: string ='http://66.228.61.76/springAngular/api/clientes';
   private usuario: Usuario;
 
   // Se crea headers para el endpoint

@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 export class InventarioService {
   // Se alamacena en variable el endPoint
 
-  // private urlEndPoint = 'http://localhost:8080/api/inventarios';
-   private urlEndPoint: string ='http://66.228.61.76/springAngular/api/inventarios';
+   private urlEndPoint = 'http://localhost:8080/api/inventarios';
+  // private urlEndPoint: string ='http://66.228.61.76/springAngular/api/inventarios';
   constructor( private httpClient: HttpClient,
                private router: Router) {  }
 

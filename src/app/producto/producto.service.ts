@@ -17,8 +17,8 @@ import { Producto } from '../facturas/models/producto';
 export class ProductoService {
 
   // Se alamacena en variable el endPoint
-  // private urlEndPoint: string ='http://localhost:8080/api/producto';
-  private urlEndPoint: string ='http://66.228.61.76/springAngular/api/producto';
+   private urlEndPoint: string ='http://localhost:8080/api/producto';
+  //private urlEndPoint: string ='http://66.228.61.76/springAngular/api/producto';
 
   constructor(private http: HttpClient, private router: Router,
     private authService:AuthService) { }

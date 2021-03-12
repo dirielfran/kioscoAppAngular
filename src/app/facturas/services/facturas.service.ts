@@ -8,10 +8,10 @@ import { Producto } from '../models/producto';
   providedIn: 'root'
 })
 export class FacturasService {
-  // private urlEndPoint: string = 'http://localhost:8080/api/facturas';
-  // private urlEndPointProd: string = 'http://localhost:8080/api/producto';
-   private urlEndPoint: string = 'http://66.228.61.76/springAngular/api/facturas';
-   private urlEndPointProd: string = 'http://66.228.61.76/springAngular/api/producto';
+   private urlEndPoint: string = 'http://localhost:8080/api/facturas';
+   private urlEndPointProd: string = 'http://localhost:8080/api/producto';
+  // private urlEndPoint: string = 'http://66.228.61.76/springAngular/api/facturas';
+  // private urlEndPointProd: string = 'http://66.228.61.76/springAngular/api/producto';
 
   constructor(private httpCliente: HttpClient) { }
 

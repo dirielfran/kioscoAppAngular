@@ -4,8 +4,8 @@
             <h3 class="card-title">Listado de Productos</h3>
 
             <div class="form-group row">
-                <div class="col sm-6">
-                    <mat-form-field class="col-4">
+                <div class="col col-sm-12 col-md-6 col-lg-4">
+                    <mat-form-field>
                         <input type="text" placeholder="Agregue Producto" aria-label="Producto" matInput [formControl]="autoCompleteControl" [matAutocomplete]="auto">
                         <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre" (optionSelected)="seleccionarProducto($event)">
                             <mat-option *ngFor="let producto of productosFiltrados | async" [value]="producto">
@@ -36,7 +36,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Nombre</th>
-                            <th>Precio Costo</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Precio Costo</th>
                             <th>Precio</th>
                             <th>Fecha</th>
                             <th>Fecha Mod.</th>
@@ -52,7 +52,7 @@
                         <tr *ngFor="let producto of productos">
                             <td>{{producto.id}}</td>
                             <td>{{producto.nombre}}</td>
-                            <td>{{producto.preciocosto | number}}</td>
+                            <td *ngIf="authService.hasRole('ROLE_ADMIN')">{{producto.preciocosto | number}}</td>
                             <td>{{producto.precio | number }}</td>
                             <td>{{producto.createAt | date:'EEEE dd, MMMM yyyy'}}</td>
                             <td>{{producto.fechamod | date:'EEEE dd, MMMM yyyy'}}</td>

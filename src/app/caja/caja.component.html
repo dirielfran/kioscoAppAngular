@@ -20,7 +20,7 @@
                             <th>Mercado Pago</th>
                             <th>Retiros</th>
                             <th>Inicio</th>
-                            <th>Ganancia</th>
+                            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Ganancia</th>
                             <th>Diferencia</th>
                             <th>estado</th>
                             <!--                         <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
@@ -39,7 +39,7 @@
                             <td>{{caja.mercadopago | number}}</td>
                             <td>{{caja.retiros | number}}</td>
                             <td>{{caja.iniciocaja | number }}</td>
-                            <td style="color: darkorchid">{{caja.ganancia | number}}</td>
+                            <td  *ngIf="authService.hasRole('ROLE_ADMIN')" style="color: darkorchid" >{{caja.ganancia | number}}</td>
                             <td>{{caja.diferencia | number}}</td>
                             <td>{{caja.estado}}</td>
                             <!--                         <td *ngIf="authService.hasRole('ROLE_ADMIN')">

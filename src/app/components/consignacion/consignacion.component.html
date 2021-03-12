@@ -20,7 +20,7 @@
                             <th>Cantidad</th>
                             <th>Precio</th>
                             <th>Total</th>
-                            <th *ngIf="authService.hasRole('ROLE_ADMIN')">Pagar</th>
+                            <th *ngIf="authService.hasRole('ROLE_USER')">Pagar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,7 +30,7 @@
                             <td>{{consignacion.cantidad | number:'.1-2'}}</td>
                             <td>{{consignacion.precio | number:'.1-2'}}</td>
                             <td>{{consignacion.cantidad * consignacion.precio | number:'.1-2'}}</td>
-                            <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+                            <td *ngIf="authService.hasRole('ROLE_USER')">
                                 <button class="btn btn-success btn-sm" type="button" name="pagar" (click)="pagar(consignacion)">Pagar</button>
                             </td>
                         </tr>

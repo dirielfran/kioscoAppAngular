@@ -23,10 +23,10 @@
                             <th>Apellido</th>
                             <th>fecha</th>
                             <th>Email</th>
-                            <th *ngIf="authService.hasRole('ROLE_ADMIN') && !cajaEstado">Abrir</th>
-                            <th *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">Cerrar</th>
-                            <th *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">Facturar</th>
-                            <th *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">Retiros</th>
+                            <th *ngIf="authService.hasRole('ROLE_USER') && !cajaEstado">Abrir</th>
+                            <th *ngIf="authService.hasRole('ROLE_USER') && cajaEstado">Cerrar</th>
+                            <th *ngIf="authService.hasRole('ROLE_USER') && cajaEstado">Facturar</th>
+                            <th *ngIf="authService.hasRole('ROLE_USER') && cajaEstado">Retiros</th>
                             <th *ngIf="authService.hasRole('ROLE_ADMIN')">Editar</th>
                             <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
                         </tr>
@@ -43,16 +43,16 @@
                             <td>{{cliente.apellido}}</td>
                             <td>{{cliente.fecha | date:'EEEE dd, MMMM yyyy'}}</td>
                             <td>{{cliente.email}}</td>
-                            <td *ngIf="authService.hasRole('ROLE_ADMIN') && !cajaEstado">
+                            <td *ngIf="authService.hasRole('ROLE_USER') && !cajaEstado">
                                 <button class="btn btn-success btn-sm" type="button" (click)="abrirCaja(cliente.id)" [disabled]="!habilitado">Abrir</button>
                             </td>
-                            <td *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">
+                            <td *ngIf="authService.hasRole('ROLE_USER') && cajaEstado">
                                 <button class="btn btn-success btn-sm" type="button" (click)="cerrarCaja()">Cerrar</button>
                             </td>
-                            <td *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">
+                            <td *ngIf="authService.hasRole('ROLE_USER') && cajaEstado">
                                 <button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">Facturar</button>
                             </td>
-                            <td *ngIf="authService.hasRole('ROLE_ADMIN') && cajaEstado">
+                            <td *ngIf="authService.hasRole('ROLE_USER') && cajaEstado">
                                 <button class="btn btn-danger btn-sm" type="button" (click)="abrirRetiro(cliente)">Retiro</button>
                             </td>
                             <td *ngIf="authService.hasRole('ROLE_ADMIN')">

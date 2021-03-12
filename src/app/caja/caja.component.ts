@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute} from '@angular/router';
 import { CajaService } from './caja.service';
 import { Caja } from './caja';
+import { AuthService } from '../usuarios/auth.service';
 @Component({
   selector: 'app-caja',
   templateUrl: './caja.component.html',
@@ -14,7 +15,8 @@ export class CajaComponent implements OnInit {
   paginador: any;
 
   constructor(  private activatedRoute: ActivatedRoute,
-                private cajaService: CajaService) {
+                private cajaService: CajaService,
+                private authService: AuthService) {
   }
 
   ngOnInit(): void {
